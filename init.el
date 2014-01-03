@@ -14,6 +14,9 @@
 (require 'font-config)
 (require 'rename-file-and-buffer)
 
+;; Default width of tab characters to 4 spaces
+(custom-set-variables '(tab-width 4))
+
 (add-to-list 'load-path "~/.emacs.d/modes")
 (add-to-list 'load-path "~/.emacs.d/modes/go-mode")
 
@@ -21,6 +24,7 @@
 
 (require 'auto-complete)
 (require 'go-autocomplete)
+
 ;; Required for go-autocomplete
 (require 'auto-complete-config)
 (ac-config-default)
