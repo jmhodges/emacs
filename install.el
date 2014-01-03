@@ -1,0 +1,21 @@
+;; Used to maintain consistency of package installation between my machines.
+;; Should be first require in init.el, but after package-initialize.
+
+(defvar jmhodges-necessary-packages (list 'auto-complete-mode
+                                          'go-autocomplete
+                                          'magit
+                                          'markdown-mode
+                                          'mustache
+                                          'pig-mode
+                                          'yaml-mode))
+
+(defun jmhodges-install ()
+  "Install all packages needed to boot"
+  (interactive)
+  (dolist (package jmhodges-necessary-packages)
+    (unless (or (member package package-activated-list)
+                (functionp package))
+      (message "Installing %s" (symbol-name package))
+      (package-install package))))
+
+(provide 'install)

@@ -3,7 +3,11 @@
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("marmalade" . "http://marmalade-repo.org/packages/")
                          ("melpa" . "http://melpa.milkbox.net/packages/")))
-(package-initialize) ;; get access to autocomplete, etc.
+(package-initialize) ;; get access to ELPA packages here.
+
+;; Defined first so that M-x jmhodges-install will install packages.
+(require 'install)
+
 
 (require 'better-defaults)
 (require 'key-bindings)
