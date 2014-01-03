@@ -7,10 +7,11 @@
                                           'markdown-mode
                                           'mustache
                                           'pig-mode
+                                          'protobuf-mode
                                           'yaml-mode))
 
 (defun jmhodges-install ()
-  "Install all packages needed to boot"
+  "Install all ELPA/MELPA packages needed to boot"
   (interactive)
   (dolist (package jmhodges-necessary-packages)
     (unless (or (member package package-activated-list)
