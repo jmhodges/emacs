@@ -16,7 +16,10 @@
 
 ;; Default width of tab characters to 4 spaces
 (custom-set-variables '(tab-width 4))
-(defalias 'yes-or-no-p 'y-or-n-p) ;; Turn "yes or no" into "y or n"
+;; Turn "yes or no" into "y or n"
+(defalias 'yes-or-no-p 'y-or-n-p)
+;; turn off the beeping
+(setq visible-bell 1)
 
 (add-to-list 'load-path "~/.emacs.d/modes")
 (add-to-list 'load-path "~/.emacs.d/modes/go-mode")
