@@ -27,6 +27,7 @@
 (add-to-list 'load-path "~/.emacs.d/modes")
 (add-to-list 'load-path "~/.emacs.d/modes/go-mode")
 
+(require 'markdown-mode-config)
 (require 'go-mode-load)
 (require 'go-mode-config)
 
