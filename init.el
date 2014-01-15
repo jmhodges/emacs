@@ -21,6 +21,8 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 ;; turn off the beeping
 (setq visible-bell 1)
+;; display column numbers in mode line
+(setq column-number-mode t)
 
 (add-to-list 'load-path "~/.emacs.d/modes")
 (add-to-list 'load-path "~/.emacs.d/modes/go-mode")
