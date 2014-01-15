@@ -13,6 +13,7 @@
 (require 'key-bindings)
 (require 'font-config)
 (require 'rename-file-and-buffer)
+(require 'sudo-edit)
 
 ;; Default width of tab characters to 4 spaces
 (custom-set-variables '(tab-width 4))
