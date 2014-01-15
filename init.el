@@ -25,9 +25,11 @@
 (add-to-list 'load-path "~/.emacs.d/modes/go-mode")
 
 (require 'go-mode-load)
+(require 'go-mode-config)
 
 (require 'auto-complete)
 (require 'go-autocomplete)
+
 
 ;; Required for go-autocomplete
 (require 'auto-complete-config)
