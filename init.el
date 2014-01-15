@@ -4,6 +4,8 @@
                          ("marmalade" . "http://marmalade-repo.org/packages/")
                          ("melpa" . "http://melpa.milkbox.net/packages/")))
 (package-initialize) ;; get access to ELPA packages here.
+(add-to-list 'load-path "~/.emacs.d/modes")
+(add-to-list 'load-path "~/.emacs.d/modes/go-mode")
 
 ;; Defined first so that M-x jmhodges-install will install packages.
 (require 'install)
@@ -23,9 +25,6 @@
 (setq visible-bell 1)
 ;; display column numbers in mode line
 (setq column-number-mode t)
-
-(add-to-list 'load-path "~/.emacs.d/modes")
-(add-to-list 'load-path "~/.emacs.d/modes/go-mode")
 
 (require 'markdown-mode-config)
 (require 'go-mode-load)
