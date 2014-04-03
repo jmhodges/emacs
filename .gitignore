@@ -5,4 +5,5 @@ auto-save-list
 backups/*
 elpa/*
 places
+tramp
 url
