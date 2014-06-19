@@ -33,29 +33,35 @@
 ;; - Use go--old-completion-list-style when using a plain list as the
 ;;   collection for completing-read
 ;;
-;; - Use go--kill-whole-line instead of kill-whole-line (called
-;;   kill-entire-line in XEmacs)
-;;
 ;; - Use go--position-bytes instead of position-bytes
 (defmacro go--xemacs-p ()
   `(featurep 'xemacs))
 
-(defalias 'go--kill-whole-line
-  (if (fboundp 'kill-whole-line)
-      #'kill-whole-line
-    #'kill-entire-line))
-
 ;; Delete the current line without putting it in the kill-ring.
 (defun go--delete-whole-line (&optional arg)
-  ;; Emacs uses both kill-region and kill-new, Xemacs only uses
-  ;; kill-region. In both cases we turn them into operations that do
-  ;; not modify the kill ring. This solution does depend on the
-  ;; implementation of kill-line, but it's the only viable solution
-  ;; that does not require to write kill-line from scratch.
-  (flet ((kill-region (beg end)
-                      (delete-region beg end))
-         (kill-new (s) ()))
-    (go--kill-whole-line arg)))
+  ;; Derived from `kill-whole-line'.
+  ;; ARG is defined as for that function.
+  (setq arg (or arg 1))
+  (if (and (> arg 0)
+           (eobp)
+           (save-excursion (forward-visible-line 0) (eobp)))
+      (signal 'end-of-buffer nil))
+  (if (and (< arg 0)
+           (bobp)
+           (save-excursion (end-of-visible-line) (bobp)))
+      (signal 'beginning-of-buffer nil))
+  (cond ((zerop arg)
+         (delete-region (progn (forward-visible-line 0) (point))
+                        (progn (end-of-visible-line) (point))))
+        ((< arg 0)
+         (delete-region (progn (end-of-visible-line) (point))
+                        (progn (forward-visible-line (1+ arg))
+                               (unless (bobp)
+                                 (backward-char))
+                               (point))))
+        (t
+         (delete-region (progn (forward-visible-line 0) (point))
+                        (progn (forward-visible-line arg) (point))))))
 
 ;; declare-function is an empty macro that only byte-compile cares
 ;; about. Wrap in always false if to satisfy Emacsen without that
@@ -756,7 +762,7 @@ you save any file, kind of defeating the point of autoloading."
 
 ;;;###autoload
 (defun godoc (query)
-  "Show go documentation for a query, much like M-x man."
+  "Show Go documentation for a query, much like M-x man."
   (interactive (list (godoc--read-query)))
   (unless (string= query "")
     (set-process-sentinel
@@ -764,6 +770,31 @@ you save any file, kind of defeating the point of autoloading."
                                   (concat "godoc " query))
      'godoc--buffer-sentinel)
     nil))
+
+(defun godoc-at-point (point)
+  "Show Go documentation for the identifier at POINT.
+
+`godoc-at-point' requires godef to work.
+
+Due to a limitation in godoc, it is not possible to differentiate
+between functions and methods, which may cause `godoc-at-point'
+to display more documentation than desired."
+  ;; TODO(dominikh): Support executing godoc-at-point on a package
+  ;; name.
+  (interactive "d")
+  (condition-case nil
+      (let* ((output (godef--call point))
+             (file (car output))
+             (name-parts (split-string (cadr output) " "))
+             (first (car name-parts)))
+        (if (not (godef--successful-p file))
+            (message "%s" (godef--error file))
+          (godoc (format "%s %s"
+                         (file-name-directory file)
+                         (if (or (string= first "type") (string= first "const"))
+                             (cadr name-parts)
+                           (car name-parts))))))
+    (file-error (message "Could not run godef binary"))))
 
 (defun go-goto-imports ()
   "Move point to the block of imports.
@@ -1033,6 +1064,21 @@ description at POINT."
       (with-current-buffer outbuf
         (split-string (buffer-substring-no-properties (point-min) (point-max)) "\n")))))
 
+(defun godef--successful-p (output)
+  (not (or (string= "-" output)
+           (string= "godef: no identifier found" output)
+           (go--string-prefix-p "godef: no declaration found for " output)
+           (go--string-prefix-p "error finding import path for " output))))
+
+(defun godef--error (output)
+  (cond
+   ((godef--successful-p output)
+    nil)
+   ((string= "-" output)
+    "godef: expression is not defined anywhere")
+   (t
+    output)))
+
 (defun godef-describe (point)
   "Describe the expression at POINT."
   (interactive "d")
@@ -1048,19 +1094,11 @@ description at POINT."
   (interactive "d")
   (condition-case nil
       (let ((file (car (godef--call point))))
-        (cond
-         ((string= "-" file)
-          (message "godef: expression is not defined anywhere"))
-         ((string= "godef: no identifier found" file)
-          (message "%s" file))
-         ((go--string-prefix-p "godef: no declaration found for " file)
-          (message "%s" file))
-         ((go--string-prefix-p "error finding import path for " file)
-          (message "%s" file))
-         (t
+        (if (not (godef--successful-p file))
+            (message "%s" (godef--error file))
           (push-mark)
           (ring-insert find-tag-marker-ring (point-marker))
-          (godef--find-file-line-column file other-window))))
+          (godef--find-file-line-column file other-window)))
     (file-error (message "Could not run godef binary"))))
 
 (defun godef-jump-other-window (point)
