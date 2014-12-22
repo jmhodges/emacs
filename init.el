@@ -10,6 +10,9 @@
 ;; Defined first so that M-x jmhodges-install will install packages.
 (require 'install)
 
+;; Copy the shell PATH to emacs if on OS X.
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
 
 (require 'better-defaults)
 (require 'key-bindings)
