@@ -32,6 +32,7 @@
 (require 'markdown-mode-config)
 (require 'go-mode-load)
 (require 'go-mode-config)
+(require 'js-mode-config)
 
 (require 'auto-complete)
 (require 'go-autocomplete)
