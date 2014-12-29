@@ -30,6 +30,8 @@
 (setq column-number-mode t)
 
 (require 'markdown-mode-config)
+(require 'web-mode-config)
+(require 'web-mode)
 (require 'go-mode-load)
 (require 'go-mode-config)
 (require 'js-mode-config)

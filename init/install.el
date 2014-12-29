@@ -9,6 +9,7 @@
                                           'mustache
                                           'pig-mode
                                           'protobuf-mode
+                                          'web-mode
                                           'yaml-mode))
 
 (defun jmhodges-install ()
