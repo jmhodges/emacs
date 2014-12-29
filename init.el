@@ -10,12 +10,13 @@
 ;; Defined first so that M-x jmhodges-install will install packages.
 (require 'install)
 
+(require 'better-defaults)
+(require 'key-bindings)
+
 ;; Copy the shell PATH to emacs if on OS X.
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
 
-(require 'better-defaults)
-(require 'key-bindings)
 (require 'font-config)
 (require 'rename-file-and-buffer)
 (require 'sudo-edit)
