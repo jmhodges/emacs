@@ -37,7 +37,7 @@
 (require 'markdown-mode-config)
 (require 'web-mode-config)
 (require 'web-mode)
-(require 'go-mode-load)
+(require 'go-mode-autoloads)
 (require 'go-mode-config)
 (require 'js-mode-config)
 
