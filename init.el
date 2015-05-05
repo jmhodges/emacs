@@ -15,7 +15,11 @@
 
 ;; Copy the shell PATH to emacs if on OS X.
 (when (memq window-system '(mac ns))
-  (exec-path-from-shell-initialize))
+  (exec-path-from-shell-initialize)
+  (exec-path-from-shell-copy-env "PYTHONPATH")
+  (exec-path-from-shell-copy-env "JAVA_HOME")
+  (exec-path-from-shell-copy-env "GOPATH")
+  )
 
 (require 'font-config)
 (require 'rename-file-and-buffer)
