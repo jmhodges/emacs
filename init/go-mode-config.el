@@ -5,6 +5,8 @@
 (add-hook 'go-mode-hook (lambda ()
                           (local-set-key (kbd "M-.") #'godef-jump)))
 (add-hook 'go-mode-hook (lambda ()
+                          (local-set-key (kbd "C-x 4 .") #'godef-jump-other-window)))
+(add-hook 'go-mode-hook (lambda ()
                           (local-set-key (kbd "M-(") #'go-rename)))
 
 (provide 'go-mode-config)
