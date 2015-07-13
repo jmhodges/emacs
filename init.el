@@ -41,6 +41,7 @@
 (require 'rename)
 (require 'go-mode-config)
 (require 'js-mode-config)
+(require 'sh-mode-config)
 
 (require 'auto-complete)
 (require 'go-autocomplete)
