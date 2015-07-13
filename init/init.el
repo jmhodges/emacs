@@ -23,6 +23,8 @@
 (setq visible-bell 1)
 ;; display column numbers in mode line
 (setq column-number-mode t)
+;; line wrap should happen at 80 because that's what most people do
+(setq-default fill-column 80)
 
 (require 'markdown-mode-config)
 (require 'go-mode-load)
