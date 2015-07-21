@@ -38,7 +38,7 @@
 (require 'web-mode-config)
 (require 'web-mode)
 (require 'go-mode-autoloads)
-(require 'rename)
+(require 'go-rename)
 (require 'go-mode-config)
 (require 'js-mode-config)
 (require 'sh-mode-config)
