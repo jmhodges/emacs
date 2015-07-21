@@ -27,7 +27,6 @@
 (setq-default fill-column 80)
 
 (require 'markdown-mode-config)
-(require 'go-mode-load)
 (require 'go-mode-config)
 
 (require 'auto-complete)
