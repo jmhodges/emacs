@@ -1,7 +1,6 @@
 (add-to-list 'load-path "~/.emacs.d/init")
 
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("marmalade" . "http://marmalade-repo.org/packages/")
                          ("melpa" . "http://melpa.milkbox.net/packages/")))
 (package-initialize) ;; get access to ELPA packages here.
 (add-to-list 'load-path "~/.emacs.d/modes")
