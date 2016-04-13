@@ -36,8 +36,8 @@
 (setq-default fill-column 80)
 
 (require 'markdown-mode-config)
-(require 'web-mode-config)
 (require 'web-mode)
+(require 'web-mode-config)
 (require 'go-mode-autoloads)
 (require 'go-rename)
 (require 'go-mode-config)
@@ -46,7 +46,6 @@
 
 (require 'auto-complete)
 (require 'go-autocomplete)
-
 
 ;; Required for go-autocomplete
 (require 'auto-complete-config)
