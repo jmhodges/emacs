@@ -43,6 +43,7 @@
 (require 'go-mode-config)
 (require 'js-mode-config)
 (require 'sh-mode-config)
+(require 'dockerfile-mode-config)
 
 (require 'auto-complete)
 (require 'go-autocomplete)
