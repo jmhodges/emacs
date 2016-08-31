@@ -2,6 +2,7 @@
 ;; Should be first require in init.el, but after package-initialize.
 
 (defvar jmhodges-necessary-packages (list 'auto-complete
+                                          'dockerfile-mode
                                           'exec-path-from-shell
                                           'go-autocomplete
                                           'magit
