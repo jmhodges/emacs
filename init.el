@@ -36,6 +36,7 @@
 (setq-default fill-column 80)
 
 (require 'markdown-mode-config)
+(require 'css-mode-config)
 (require 'web-mode)
 (require 'web-mode-config)
 (require 'go-mode-autoloads)
