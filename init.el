@@ -41,6 +41,7 @@
 (require 'web-mode-config)
 (require 'go-mode-autoloads)
 (require 'go-rename)
+(require 'go-guru)
 (require 'go-mode-config)
 (require 'js-mode-config)
 (require 'sh-mode-config)

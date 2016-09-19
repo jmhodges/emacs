@@ -9,4 +9,6 @@
 (add-hook 'go-mode-hook (lambda ()
                           (local-set-key (kbd "M-(") #'go-rename)))
 
+(add-hook 'go-mode-hook #'go-guru-hl-identifier-mode)
+
 (provide 'go-mode-config)
