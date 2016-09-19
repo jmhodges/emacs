@@ -45,7 +45,7 @@
 (require 'js-mode-config)
 (require 'sh-mode-config)
 (require 'dockerfile-mode-config)
-
+(require 'python-mode-config)
 (require 'auto-complete)
 (require 'go-autocomplete)
 
