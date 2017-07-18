@@ -5,5 +5,7 @@
 
 (add-hook 'python-mode-hook
           (lambda ()
-            (setq indent-tabs-mode nil)))
+            (setq indent-tabs-mode nil)
+            (setq python-indent 4)
+            ))
 (provide 'python-mode-config)
