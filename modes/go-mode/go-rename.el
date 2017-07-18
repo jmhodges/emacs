@@ -1,17 +1,27 @@
-;;; Copyright 2014 The Go Authors. All rights reserved.
-;;; Use of this source code is governed by a BSD-style
-;;; license that can be found in the LICENSE file.
-;;;
-;;; Integration of the 'gorename' tool into Emacs.
-;;;
-;;; To install:
-;;; % go get golang.org/x/tools/cmd/gorename
-;;; % go build golang.org/x/tools/cmd/gorename
-;;; % mv gorename $HOME/bin/         # or elsewhere on $PATH
-;;;
-;;; The go-rename-command variable can be customized to specify an
-;;; alternative location for the installed command.
+;;; go-rename.el --- Integration of the 'gorename' tool into Emacs.
 
+;; Copyright 2014 The Go Authors. All rights reserved.
+;; Use of this source code is governed by a BSD-style
+;; license that can be found in the LICENSE file.
+
+;; Version: 0.1
+;; Package-Requires: ((go-mode "1.3.1"))
+;; Keywords: tools
+
+;;; Commentary:
+
+;; To install:
+
+;; % go get golang.org/x/tools/cmd/gorename
+;; % go build golang.org/x/tools/cmd/gorename
+;; % mv gorename $HOME/bin/         # or elsewhere on $PATH
+
+;; The go-rename-command variable can be customized to specify an
+;; alternative location for the installed command.
+
+;;; Code:
+
+(require 'cl-lib)
 (require 'compile)
 (require 'go-mode)
 (require 'thingatpt)
@@ -25,6 +35,7 @@
   :type 'string
   :group 'go-rename)
 
+;;;###autoload
 (defun go-rename (new-name &optional force)
   "Rename the entity denoted by the identifier at point, using
 the `gorename' tool. With FORCE, call `gorename' with the
@@ -44,7 +55,7 @@ the `gorename' tool. With FORCE, call `gorename' with the
                    (string= (file-name-extension (buffer-file-name)) ".go"))))
   (let* ((posflag (format "-offset=%s:#%d"
                           buffer-file-name
-                          (1- (go--position-bytes (point)))))
+                          (1- (position-bytes (point)))))
          (env-vars (go-root-and-paths))
          (goroot-env (concat "GOROOT=" (car env-vars)))
          (gopath-env (concat "GOPATH=" (mapconcat #'identity (cdr env-vars) ":")))
@@ -57,7 +68,7 @@ the `gorename' tool. With FORCE, call `gorename' with the
         (message "Command: %s:" args)
         (message "Running gorename...")
         ;; Use dynamic binding to modify/restore the environment
-        (setq success (zerop (let ((process-environment (list* goroot-env gopath-env process-environment)))
+        (setq success (zerop (let ((process-environment (cl-list* goroot-env gopath-env process-environment)))
           (apply #'call-process args))))
       (insert "\n")
       (compilation-mode)
@@ -72,7 +83,6 @@ the `gorename' tool. With FORCE, call `gorename' with the
         ;; failure
         (let ((w (display-buffer (current-buffer))))
           (message "gorename exited")
-          (shrink-window-if-larger-than-buffer w)
           (set-window-point w (point-min)))))))
 
   ;; Reload the modified files, saving line/col.
@@ -94,3 +104,5 @@ the `gorename' tool. With FORCE, call `gorename' with the
                             (buffer-substring (point-min) (point-max))))
 
 (provide 'go-rename)
+
+;;; go-rename.el ends here
