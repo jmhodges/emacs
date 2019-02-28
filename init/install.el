@@ -5,6 +5,9 @@
                                           'dockerfile-mode
                                           'exec-path-from-shell
                                           'go-autocomplete
+                                          'go-mode
+                                          'go-rename
+                                          'go-guru
                                           'magit
                                           'markdown-mode
                                           'mustache
