@@ -25,7 +25,15 @@
 (require 'sudo-edit)
 
 ;; Default width of tab characters to 4 spaces
-(custom-set-variables '(tab-width 4))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (go-guru go-mode yaml-mode web-mode protobuf-mode pig-mode mustache markdown-mode magit go-autocomplete exec-path-from-shell dockerfile-mode apache-mode)))
+ '(tab-width 4))
 ;; Turn "yes or no" into "y or n"
 (defalias 'yes-or-no-p 'y-or-n-p)
 ;; turn off the beeping
@@ -43,7 +51,6 @@
 (require 'css-mode-config)
 (require 'web-mode)
 (require 'web-mode-config)
-(require 'go-mode-autoloads)
 (require 'go-rename)
 (require 'go-guru)
 (require 'go-mode-config)
@@ -59,3 +66,9 @@
 (ac-config-default)
 
 (server-start)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
