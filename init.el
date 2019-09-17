@@ -51,14 +51,20 @@ There are two things you can do about this warning:
 (defalias 'yes-or-no-p 'y-or-n-p)
 ;; turn off the beeping
 (setq visible-bell 1)
+
+;; don't set off the bell when we scroll to the end of a buffer
+(defun my-bell-function ()
+  (unless (memq this-command
+        '(isearch-abort abort-recursive-edit exit-minibuffer
+              keyboard-quit mwheel-scroll down up next-line previous-line
+              backward-char forward-char))
+    (ding)))
+(setq ring-bell-function 'my-bell-function)
+
 ;; display column numbers in mode line
 (setq column-number-mode t)
 ;; line wrap should happen at 80 because that's what most people do
 (setq-default fill-column 80)
-
-;; chill out, emacs. your scroll sensitivity is too much
-;; (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; scroll one line at a time
-;; (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
 
 (require 'markdown-mode-config)
 (require 'css-mode-config)
