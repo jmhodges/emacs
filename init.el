@@ -69,6 +69,10 @@ There are two things you can do about this warning:
 ;; (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; scroll one line at a time
 ;; (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
 
+(eval-when-compile
+  (require 'use-package))
+(require 'bind-key)                ;; if you use any :bind variant
+
 (require 'markdown-mode-config)
 (require 'web-mode-config)
 (require 'go-guru)
