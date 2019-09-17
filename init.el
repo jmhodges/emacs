@@ -27,7 +27,7 @@ There are two things you can do about this warning:
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (lsp-mode typescript-mode go-guru go-mode yaml-mode web-mode protobuf-mode pig-mode mustache markdown-mode magit go-autocomplete exec-path-from-shell dockerfile-mode apache-mode)))
+    (use-package lsp-mode typescript-mode go-guru go-mode yaml-mode web-mode protobuf-mode pig-mode mustache markdown-mode magit go-autocomplete exec-path-from-shell dockerfile-mode apache-mode)))
  '(tab-width 4))
 
 (require 'install)
