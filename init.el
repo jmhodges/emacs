@@ -19,9 +19,6 @@ There are two things you can do about this warning:
     (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")))))
 (package-initialize)
 
-(add-to-list 'load-path "~/.emacs.d/modes")
-(add-to-list 'load-path "~/.emacs.d/modes/go-mode")
-
 ;; Defined first so that M-x jmhodges-install will install packages.
 (require 'install)
 
