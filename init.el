@@ -70,8 +70,6 @@ There are two things you can do about this warning:
 ;; (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
 
 (require 'markdown-mode-config)
-(require 'css-mode-config)
-(require 'web-mode)
 (require 'web-mode-config)
 (require 'go-guru)
 (require 'go-mode-config)
