@@ -24,7 +24,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (use-package lsp-mode typescript-mode go-guru go-mode yaml-mode web-mode protobuf-mode pig-mode mustache markdown-mode magit go-autocomplete exec-path-from-shell dockerfile-mode apache-mode)))
+    (company-lsp lsp-ui yasnippet use-package flycheck typescript-mode go-mode yaml-mode web-mode protobuf-mode pig-mode mustache markdown-mode magit exec-path-from-shell dockerfile-mode apache-mode)))
  '(tab-width 4))
 
 (require 'install)
@@ -70,20 +70,23 @@
   (require 'use-package))
 (require 'bind-key)                ;; if you use any :bind variant
 
+(require 'yasnippet)
+(require 'lsp-mode)
+(require 'lsp-ui)
+(require 'company-lsp)
+(push 'company-lsp company-backends)
+;; Disable client-side cache because the LSP server does a better job.
+(setq company-transformers nil
+      company-lsp-async t
+      company-lsp-cache-candidates nil)
+
 (require 'markdown-mode-config)
 (require 'web-mode-config)
-(require 'go-guru)
 (require 'go-mode-config)
 (require 'js-mode-config)
 (require 'sh-mode-config)
 (require 'dockerfile-mode-config)
 (require 'python-mode-config)
-(require 'auto-complete)
-(require 'go-autocomplete)
-
-;; Required for go-autocomplete
-(require 'auto-complete-config)
-(ac-config-default)
 
 (server-start)
 (custom-set-faces
