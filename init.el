@@ -4,9 +4,12 @@
 (setq package-enable-at-startup nil)
 (setq package-archives
       '(("MELPA Stable" . "https://stable.melpa.org/packages/")
-      ("MELPA"        . "https://melpa.org/packages/"))
+        ("MELPA"        . "https://melpa.org/packages/")
+        ("GNU"          . "http://elpa.gnu.org/packages/"))
       package-archive-priorities
-      '(("MELPA Stable" . 0)
+      '(
+        ("GNU" . 0)
+        ("MELPA Stable" . 1)
         ("MELPA"        . 10))) ;; MELPA goes first, then look up Stable
 (package-initialize)
 
